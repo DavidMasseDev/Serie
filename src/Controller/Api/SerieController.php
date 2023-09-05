@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/api/serie', name: 'api_serie_')]
 
@@ -31,11 +31,11 @@ class SerieController extends AbstractController
     }
 
     #[Route('/', name: 'add', requirements: ['id'=>'\d+'], methods: ['POST'])]
-    public function add(Request $request, Serializer $serializer): Response
+    public function add(Request $request, SerializerInterface $serializer): Response
     {
         $data = $request->getContent();
         $serie = $serializer->deserialize($data, Serie::class, 'json');
-        dd($data);
+        dd($serie);
     }
     #[Route('/{id}', name: 'update', requirements: ['id'=>'\d+'], methods: ['PUT', 'PATCH'])]
     public function update(int $id): Response
