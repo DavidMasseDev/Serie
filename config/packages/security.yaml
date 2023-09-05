@@ -9,7 +9,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email, username
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -17,6 +17,21 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Security\AppAuthenticator
+            #Donne la possibilité d'essayer de se connecter 3 fois par minute avant d'etre bloqué pendant 1min.
+            login_throttling :
+                max_attempts : 3
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: serie_list
+
+            remember_me:
+                secret: '%kernel.secret%'
+                # durée de vie du cookie Remember Me (en sec)
+                lifetime: 604800
+                path: /
+                always_remember_me: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -27,7 +42,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path : ^/serie/(list|\d+), roles : PUBLIC_ACCESS} # Accès public, donc tout le monde peut y aller. (list|\d+) --> accessible soit à serie/list ou serie/id
+         - { path: ^/serie, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

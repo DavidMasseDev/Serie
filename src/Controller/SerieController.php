@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Validator\Constraints\Date;
 
 #[Route('/serie', name: 'serie_')]
@@ -63,7 +64,9 @@ class SerieController extends AbstractController
 
     }
 
+
     #[Route('/new', name: 'new', requirements: ['id' => '\d+'])]
+    //#[IsGranted('ROLE_ADMIN')] // Ici la route est accessible uniquement si l'utilisateur a un role_user (donc connecté)
     public function new(EntityManagerInterface $em, Request $request): Response
     {
         $serie = new Serie();
