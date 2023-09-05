@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block css %}{{ asset('css/style2.css') }}{% endblock %}
+{% block body %}
+<h1>Welcome in Series !</h1>
+
+{% set city="Rennes" %}
+{% set colors=["Orange","Yellow","Blue"] %}
+
+
+{# Quelques filtres #}
+<div>Mettre en majuscules : {{ city|upper }}</div>
+<div>Joindre les éléments d'un tableau : {{ colors|join('-') }}</div>
+<div>Nombre d'éléments du tableau : {{ colors|length }}</div>
+<div>Date du jour : {{ "now"|date('D M Y h:i:s',"Europe/Paris") }}</div>
+{% endblock %}

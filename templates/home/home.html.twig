@@ -1,0 +1,13 @@
+
+{%  extends 'base.html.twig' %}
+
+{% block title %} {{ parent() }} | Accueil{% endblock %}
+
+{% block body %}
+<h1>Liste des Séries </h1>
+    <div class="series-list">
+
+    </div>
+    <h2>{{ serie.name }}</h2>
+    <p>{{ serie.genre }}</p>
+{% endblock %}

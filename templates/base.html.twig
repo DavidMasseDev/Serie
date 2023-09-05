@@ -1,16 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Séries !{% endblock %}</title>
+    <link rel="stylesheet"
+          href="{{ asset('css/normalize.css') }}"> {# permet de normaliser le css suivant les différents navigateurs #}
+    <link rel="stylesheet" href="{% block css %}{{ asset('css/style.css') }}{% endblock %}">
+    <link rel="icon" href="{{ asset('images/icon.png') }}">
+</head>
+<body>
+<div class="container">
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+
+    {% for message in app.flashes('success') %}
+        <div class="flash flash-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    <header>
+        <div class="flex_div flex_between">
+            <a href="{{ path('main_home') }}"><img src="{{ asset('images/logo.svg') }}" alt="Series"
+                                                   title="logo series"></a>
+            <div><h1>Bonjour</h1></div>
+        </div>
+        <div>
+            {% include 'menu/nav.html.twig' %}
+        </div>
+    </header>
+    <main>
+        {% block body %}{% endblock %} <!-- body : on donne le nom que l'on veut au block -->
+    </main>
+    <footer>
+        {% include 'menu/nav.html.twig' %}
+    </footer>
+</div>
+{% block extraStyles %}
+{% endblock %}
+</body>
 </html>

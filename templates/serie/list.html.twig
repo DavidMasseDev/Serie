@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h2>Liste des Séries</h2>
+    <section>
+        <div class="flex_between">
+            {% if currentPage >1 %}
+                <a href="{{ path('serie_list',{'page': currentPage-1}) }}">Previous page</a>
+            {% endif %}
+            {% if currentPage < maxPage %}
+                <a href="{{ path('serie_list',{'page': currentPage+1}) }}">Next page</a>
+            {% endif %}
+            {% for i in 1..maxPage %}
+                <a href="{{ path('serie_list',{'page': i}) }}"> - {{ i }} </a>
+            {% endfor %}
+
+
+        </div>
+    </section>
+    <section class="series-list">
+
+
+        {% for serie in series %}
+            <a href="{{ path('serie_show', {'id':serie.id}) }}">
+                <article>
+                    <img src="{{ asset('img/posters/series/'~serie.poster) }}">
+                    <p>{{ serie.name }}</p>
+
+                </article>
+            </a>
+        {% endfor %}
+
+
+    </section>
+
+
+
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | Liste des Séries
+{% endblock %}
+

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+<h2 class="margin-top-max">Détails de la Série {{ serie.name }} ({{ serie.genre }})</h2>
+    <section class="serie-details">
+        <img src="{{ asset('img/posters/series/'~serie.poster) }}" alt="{{ serie.name }}">
+        <div class="serie-details-infos">
+            <div>
+                <a class="link_button" href="{{ path('serie_edit', {'id' : serie.id}) }}">Edit</a>
+                <a class="link_button" onclick="return confirm('Deletion of {{ serie.name}} is irreversible.')" href="{{ path('season_delete', {'id' : serie.id}) }}">Delete</a>
+                <a class="link_button" href="{{ path('season_new', {'serieId' : serie.id}) }}">Add season</a>
+
+            </div>
+            <h3>{{ serie.name }}</h3>
+            <div>User ratings : {{ serie.vote }}</div>
+            <div>Genres : {{ serie.genre }}</div>
+            <div>Status : {{ serie.status }}</div>
+            <div>Aired form {{ serie.firstAirDate | date('Y-m-d') }} to {{ serie.lastAirDate | date(('Y-m-d')) }}</div>
+            <div>{{ serie.overview | nl2br}}</div>
+
+        </div>
+    </section>
+    <div class="seasons">
+        <h3>Seasons</h3>
+        {% for season in serie.seasons %}
+            <article>
+                <img src="{{ asset('img/posters/seasons/'~season.poster) }}" alt="{{ serie.name }} | {{ season.number }}">
+                <div>
+                    <h4>Season #{{ season.number }}</h4>
+                    <p>First air date : {{ season.firstAirDate | date('d-m-Y') }}</p>
+                    <p>{{ season.overview }}</p>
+
+                </div>
+            </article>
+        {% else %}
+            <div>No seasons ! </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+{% block extraStyles %}
+    <style>
+        body{
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.9)), url("{{ asset('img/backdrops/'~serie.backdrop) }}");
+
+        }
+    </style>
+{% endblock %}
+
