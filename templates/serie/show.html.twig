@@ -11,7 +11,9 @@
         <div class="serie-details-infos">
             <div>
                 <a class="link_button" href="{{ path('serie_edit', {'id' : serie.id}) }}">Edit</a>
-                <a class="link_button" onclick="return confirm('Deletion of {{ serie.name}} is irreversible.')" href="{{ path('season_delete', {'id' : serie.id}) }}">Delete</a>
+                {%  if is_granted("SERIE_DELETE", serie) %}
+                    <a class="link_button" onclick="return confirm('Deletion of {{ serie.name}} is irreversible.')" href="{{ path('season_delete', {'id' : serie.id}) }}">Delete</a>
+                {% endif %}
                 <a class="link_button" href="{{ path('season_new', {'serieId' : serie.id}) }}">Add season</a>
 
             </div>

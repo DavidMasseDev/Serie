@@ -45,6 +45,9 @@ security:
          - { path : ^/serie/(list|\d+), roles : PUBLIC_ACCESS} # Accès public, donc tout le monde peut y aller. (list|\d+) --> accessible soit à serie/list ou serie/id
          - { path: ^/serie, roles: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
+    role_hierarchy :
+        #Role_enfant : Role_parent
+        ROLE_ADMIN : ROLE_USER #L'admin a les mêmes droits que le User// Ce n'est pas parce qu'on est Admin, qu'on a le droits d'accéder partout (pages user confidentielles, données privées, etc...)
 
 when@test:
     security:

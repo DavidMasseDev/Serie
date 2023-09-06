@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serie index{% endblock %}
+
+{% block body %}
+    <h1>Serie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Overview</th>
+                <th>Status</th>
+                <th>Vote</th>
+                <th>Popularity</th>
+                <th>Genre</th>
+                <th>FirstAirDate</th>
+                <th>LastAirDate</th>
+                <th>Backdrop</th>
+                <th>Poster</th>
+                <th>TmdbId</th>
+                <th>DateCreated</th>
+                <th>DateModified</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for serie in series %}
+            <tr>
+                <td>{{ serie.id }}</td>
+                <td>{{ serie.name }}</td>
+                <td>{{ serie.overview }}</td>
+                <td>{{ serie.status }}</td>
+                <td>{{ serie.vote }}</td>
+                <td>{{ serie.popularity }}</td>
+                <td>{{ serie.genre }}</td>
+                <td>{{ serie.firstAirDate ? serie.firstAirDate|date('Y-m-d') : '' }}</td>
+                <td>{{ serie.lastAirDate ? serie.lastAirDate|date('Y-m-d') : '' }}</td>
+                <td>{{ serie.backdrop }}</td>
+                <td>{{ serie.poster }}</td>
+                <td>{{ serie.tmdbId }}</td>
+                <td>{{ serie.dateCreated ? serie.dateCreated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ serie.dateModified ? serie.dateModified|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_serie_crud_show', {'id': serie.id}) }}">show</a>
+                    <a href="{{ path('app_serie_crud_edit', {'id': serie.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_serie_crud_new') }}">Create new</a>
+{% endblock %}

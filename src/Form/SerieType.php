@@ -53,8 +53,17 @@ class SerieType extends AbstractType
                 'widget' => 'single_text'
             ])
             ->add('lastAirDate')
-            ->add('backdrop')
+            ->add('backdrop', FileType::class, [
+                'mapped' => false, // l'entité ne doit pas le récupérer car c'est un fichier et non pas un string.
+                'required' => false,
+                'constraints' => [ // Ajout de contraintes de valdiation puisqu'on ne peut pas les faire dans l'entité
+                    new Image([
+                        'maxSize' => '1m',
+                        'mimeTypesMessage' => 'Ceci n\'est pas une pipe.'
+                    ])
+                ]
 
+            ])
             ->add('poster', FileType::class, [
                 'mapped' => false, // l'entité ne doit pas le récupérer car c'est un fichier et non pas un string.
                 'required' => false,
