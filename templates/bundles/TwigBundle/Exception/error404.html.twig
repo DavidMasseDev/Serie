@@ -1,0 +1,15 @@
+{# LE TEMPLATE DOIT OBLIGATOIREMENT COMMENCER PAR 'error' #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Erreur 404 !</h1>
+    <h4>
+        Message : {{ exception.message }}
+    </h4>
+
+{% endblock %}
+
+{% block title %}
+    {{ parent() }} | 404
+{% endblock %}

@@ -76,6 +76,9 @@ class Serie
     // devant les éléments de Season qu'on veut récupérer
     private Collection $seasons;
 
+    #[ORM\Column]
+    private ?int $nbLike = null;
+
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
@@ -283,5 +286,17 @@ class Serie
 
     public function __toString(){
         return $this->getName();
+    }
+
+    public function getNbLike(): ?int
+    {
+        return $this->nbLike;
+    }
+
+    public function setNbLike(int $nbLike): static
+    {
+        $this->nbLike = $nbLike;
+
+        return $this;
     }
 }

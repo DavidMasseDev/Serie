@@ -4,6 +4,17 @@
 
 {% endblock %}
 
+{% block extraJS %}
+    <script>
+        let buttons = document.querySelectorAll(".like-button");
+        buttons.forEach(function (button){
+            button.addEventListener('click', function (){
+                fetch("{{ path('api_serie_update', {'id':serie.id}) }}")  {# L\'interet de faire le JS ici est de pouvoir insérer du twog dans le JS #}
+            })
+        })
+    </script>
+{% endblock %}
+
 {% block body %}
 <h2 class="margin-top-max">Détails de la Série {{ serie.name }} ({{ serie.genre }})</h2>
     <section class="serie-details">
@@ -17,12 +28,17 @@
                 <a class="link_button" href="{{ path('season_new', {'serieId' : serie.id}) }}">Add season</a>
 
             </div>
-            <h3>{{ serie.name }}</h3>
+            <h3>{{ serie.name }} | {{ serie.nbLike }} <div class="heart"></div>&#9829; </h3>
+            <div class="flex_div">
+                <button class="like-button" value="1">Like</button>
+                <button class="like-button" value="-1">Dislike</button>
+            </div>
             <div>User ratings : {{ serie.vote }}</div>
             <div>Genres : {{ serie.genre }}</div>
             <div>Status : {{ serie.status }}</div>
             <div>Aired form {{ serie.firstAirDate | date('Y-m-d') }} to {{ serie.lastAirDate | date(('Y-m-d')) }}</div>
             <div>{{ serie.overview | nl2br}}</div>
+
 
         </div>
     </section>

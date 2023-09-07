@@ -183,3 +183,12 @@ textarea{
 .form-label{
     color: #BC956B;
 }
+
+.heart{
+    content: '\1F90D';
+    cursor: pointer;
+}
+
+.heart:hover{
+    content: '\2665';
+}
